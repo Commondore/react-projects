@@ -1,11 +1,7 @@
-import "./App.css";
+import { PizzaBuilder } from "@/pages/pizza-builder";
 
 function App() {
-  return (
-    <>
-      <h1>Hello react</h1>
-    </>
-  );
+  return <PizzaBuilder />;
 }
 
 export default App;
