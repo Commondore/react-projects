@@ -3,6 +3,7 @@ import styles from "../App.module.css";
 import { Ings } from "@/interfaces/pizza";
 import { Pizza } from "@/components/pizza";
 import { Controls } from "@/components/controls";
+import { Modal } from "@/shared/ui/modal";
 
 const PRICES = {
   cheese: 30,
@@ -50,6 +51,9 @@ export const PizzaBuilder = () => {
 
   return (
     <div className={styles.pizzaWrap}>
+      <Modal show={true} close={() => {}}>
+        <h1>HEllo modal</h1>
+      </Modal>
       <Pizza ings={ings} />
       <Controls
         ings={ings}
