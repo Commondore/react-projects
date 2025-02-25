@@ -2,11 +2,14 @@ import { Ings } from "@/interfaces/pizza";
 
 import styles from "./style.module.css";
 import { ControlItem } from "@/components/controls/control-item";
+import { ActionButton } from "@/shared/ui/action-button";
 
 interface Props {
   ings: Ings;
   addIng: (ingName: string) => void;
   removeIng: (ingName: string) => void;
+  price: number;
+  purchasable: boolean;
 }
 
 const CONTROLS = {
@@ -16,7 +19,7 @@ const CONTROLS = {
   mushrooms: "Грибы",
 };
 
-export const Controls = ({ ings, addIng, removeIng }: Props) => {
+export const Controls = ({ ings, addIng, removeIng, price, purchasable }: Props) => {
   return (
     <div>
       <h3 className={styles.title}>Нажмите чтобы добавить</h3>
@@ -32,6 +35,14 @@ export const Controls = ({ ings, addIng, removeIng }: Props) => {
             />
           );
         })}
+      </div>
+      <div className={styles.price}>
+        Стоимость: <span>{price} сом</span>
+      </div>
+      <div className={styles.order}>
+        <ActionButton disabled={!purchasable} click={() => {}}>
+          Оформить заказ
+        </ActionButton>
       </div>
     </div>
   );
