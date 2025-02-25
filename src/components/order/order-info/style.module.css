@@ -1,0 +1,45 @@
+.title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.list {
+  padding: 20px;
+  list-style: none;
+}
+
+.item {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  background-color: #f2f2f2;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+
+  & .name {
+    font-style: italic;
+  }
+
+  & .count {
+    margin-left: 5px;
+    font-weight: bold;
+  }
+}
+
+.price {
+  font-size: 1.2rem;
+  text-align: center;
+
+  span {
+    font-weight: bold;
+  }
+}
+
+.controls {
+  display: flex;
+  margin-top: 20px;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}

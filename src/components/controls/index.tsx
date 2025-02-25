@@ -10,6 +10,7 @@ interface Props {
   removeIng: (ingName: string) => void;
   price: number;
   purchasable: boolean;
+  onPurchasing: () => void;
 }
 
 const CONTROLS = {
@@ -19,7 +20,7 @@ const CONTROLS = {
   mushrooms: "Грибы",
 };
 
-export const Controls = ({ ings, addIng, removeIng, price, purchasable }: Props) => {
+export const Controls = ({ ings, addIng, removeIng, price, purchasable, onPurchasing }: Props) => {
   return (
     <div>
       <h3 className={styles.title}>Нажмите чтобы добавить</h3>
@@ -40,7 +41,7 @@ export const Controls = ({ ings, addIng, removeIng, price, purchasable }: Props)
         Стоимость: <span>{price} сом</span>
       </div>
       <div className={styles.order}>
-        <ActionButton disabled={!purchasable} click={() => {}}>
+        <ActionButton disabled={!purchasable} click={onPurchasing}>
           Оформить заказ
         </ActionButton>
       </div>

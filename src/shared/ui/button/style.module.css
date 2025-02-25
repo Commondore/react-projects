@@ -1,0 +1,47 @@
+.btn {
+  display: inline-block;
+  margin: 0 0.5rem;
+  cursor: pointer;
+  border: none;
+  background: #ccc;
+  padding: 0.5rem 1.5rem;
+  color: #000;
+  border-radius: 4px;
+  opacity: 0.8;
+  transition: 0.2s;
+}
+.btn:hover {
+  opacity: 1;
+}
+.danger {
+  background: #e74c3c;
+  color: white;
+}
+.success {
+  background: #34ad3c;
+  color: white;
+}
+
+.warning {
+  background: #da8d23;
+  color: white;
+}
+
+.xs {
+  padding: 2px 9px;
+  font-size: 0.8em;
+}
+.sm {
+  padding: 4px 12px;
+  font-size: 0.9em;
+}
+
+.lg {
+  padding: 10px 30px;
+  font-size: 1.1em;
+}
+
+.xl {
+  padding: 12px 36px;
+  font-size: 1.2em;
+}

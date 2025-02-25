@@ -4,6 +4,7 @@ import { Ings } from "@/interfaces/pizza";
 import { Pizza } from "@/components/pizza";
 import { Controls } from "@/components/controls";
 import { Modal } from "@/shared/ui/modal";
+import { OrderInfo } from "@/components/order/order-info";
 
 const PRICES = {
   cheese: 30,
@@ -20,6 +21,7 @@ export const PizzaBuilder = () => {
     mushrooms: 0,
   });
   const [price, setPrice] = useState(100);
+  const [purchasing, setPurchasing] = useState(false);
 
   const addIng = (ingName: string) => {
     setIngs((ings) => {
@@ -49,10 +51,13 @@ export const PizzaBuilder = () => {
     return count > 0;
   };
 
+  const purchasingOn = () => setPurchasing(true);
+  const purchasingOff = () => setPurchasing(false);
+
   return (
     <div className={styles.pizzaWrap}>
-      <Modal show={true} close={() => {}}>
-        <h1>HEllo modal</h1>
+      <Modal show={purchasing} close={purchasingOff}>
+        <OrderInfo ings={ings} price={price} cancel={() => {}} />
       </Modal>
       <Pizza ings={ings} />
       <Controls
@@ -61,6 +66,7 @@ export const PizzaBuilder = () => {
         removeIng={removeIng}
         price={price}
         purchasable={isPurchasable()}
+        onPurchasing={purchasingOn}
       />
     </div>
   );
