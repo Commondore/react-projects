@@ -1,0 +1,14 @@
+.post {
+  padding: 30px;
+  border-radius: 15px;
+  border: 3px solid #fff;
+  box-shadow: 0 0 10px -5px #000;
+  text-align: center;
+  background: #ccc;
+}
+.title {
+  margin-bottom: 1rem;
+}
+.author {
+  color: #444;
+}
