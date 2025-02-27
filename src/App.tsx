@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { Post } from "@/components/post";
+import { IPost } from "@/interfaces/post";
 
 interface PostState {
   id: number;
@@ -9,11 +10,30 @@ interface PostState {
 }
 
 function App() {
-  const [posts, setPosts] = useState<PostState[]>([
-    { id: 1, title: "Post 1", author: "Mike Johnson" },
-    { id: 2, title: "Post 2", author: "Mike Johnson" },
-    { id: 3, title: "Post 3", author: "Mike Johnson" },
-  ]);
+  const [posts, setPosts] = useState<PostState[]>([]);
+
+  const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/posts?_limit=6")
+      .then((res) => res.json())
+      .then((data: IPost[]) => {
+        const posts = data.map((post) => {
+          return {
+            ...post,
+            author: "Mike Jefferson",
+          };
+        });
+        setPosts(posts);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return <h1 style={{ textAlign: "center" }}>Loading....</h1>;
+
   return (
     <div className="wrap">
       <h1>Hello react</h1>
@@ -23,6 +43,14 @@ function App() {
           return <Post key={post.id} title={post.title} author={post.author} />;
         })}
       </div>
+
+      <button onClick={() => setShow(!show)}>Переключить</button>
+
+      {show && (
+        <div>
+          <h2>Комментарии</h2>
+        </div>
+      )}
     </div>
   );
 }

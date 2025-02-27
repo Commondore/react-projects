@@ -1,3 +1,4 @@
+import { memo } from "react";
 import styles from "./style.module.css";
 
 interface Props {
@@ -5,7 +6,7 @@ interface Props {
   author: string;
 }
 
-export const Post = ({ title, author }: Props) => {
+const PostComponent = ({ title, author }: Props) => {
   return (
     <div className={styles.post}>
       <h2 className={styles.title}>{title}</h2>
@@ -15,3 +16,5 @@ export const Post = ({ title, author }: Props) => {
     </div>
   );
 };
+
+export const Post = memo(PostComponent);

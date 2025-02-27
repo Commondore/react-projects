@@ -5,10 +5,13 @@
   box-shadow: 0 0 10px -5px #000;
   text-align: center;
   background: #ccc;
+  display: flex;
+  flex-direction: column;
 }
 .title {
   margin-bottom: 1rem;
 }
 .author {
+  margin-top: auto;
   color: #444;
 }
