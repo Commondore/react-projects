@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
-import "./App.css";
+import { useState } from "react";
 import { Post } from "@/components/post";
-import { IPost } from "@/interfaces/post";
+import { Comments } from "@/components/comments";
+import { useFetch } from "@/hooks/useFetch";
+import "./App.css";
 
 interface PostState {
   id: number;
@@ -10,27 +11,11 @@ interface PostState {
 }
 
 function App() {
-  const [posts, setPosts] = useState<PostState[]>([]);
-
   const [show, setShow] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/posts?_limit=6")
-      .then((res) => res.json())
-      .then((data: IPost[]) => {
-        const posts = data.map((post) => {
-          return {
-            ...post,
-            author: "Mike Jefferson",
-          };
-        });
-        setPosts(posts);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+  const [posts, loading] = useFetch<PostState[]>(
+    [],
+    "https://jsonplaceholder.typicode.com/posts?_limit=3"
+  );
 
   if (loading) return <h1 style={{ textAlign: "center" }}>Loading....</h1>;
 
@@ -46,11 +31,7 @@ function App() {
 
       <button onClick={() => setShow(!show)}>Переключить</button>
 
-      {show && (
-        <div>
-          <h2>Комментарии</h2>
-        </div>
-      )}
+      {show && <Comments />}
     </div>
   );
 }
