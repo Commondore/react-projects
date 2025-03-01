@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Post } from "@/components/post";
 import { Comments } from "@/components/comments";
-import { useFetch } from "@/hooks/useFetch";
 import "./App.css";
+import { fetchPosts, fetchUserById } from "@/api/request";
 
 interface PostState {
   id: number;
@@ -12,26 +12,54 @@ interface PostState {
 
 function App() {
   const [show, setShow] = useState(false);
-  const [posts, loading] = useFetch<PostState[]>(
-    [],
-    "https://jsonplaceholder.typicode.com/posts?_limit=3"
-  );
+  const [posts, setPosts] = useState<PostState[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selected, setSelected] = useState<number>();
+
+  useEffect(() => {
+    fetchPosts()
+      .then(async (posts) => {
+        const result = posts.map(async (post) => {
+          const user = await fetchUserById(post.userId);
+          return {
+            ...post,
+            author: user.name,
+          };
+        });
+
+        const data = await Promise.all(result);
+        setPosts(data);
+      })
+      .finally(() => setLoading(false));
+  }, []);
 
   if (loading) return <h1 style={{ textAlign: "center" }}>Loading....</h1>;
 
   return (
-    <div className="wrap">
-      <h1>Hello react</h1>
+    <div className="text-center py-10">
+      <h1 className="text-4xl">Hello react</h1>
 
       <div className="post-list">
         {posts.map((post) => {
-          return <Post key={post.id} title={post.title} author={post.author} />;
+          return (
+            <Post
+              key={post.id}
+              title={post.title}
+              author={post.author}
+              onSelect={() => setSelected(post.id)}
+            />
+          );
         })}
       </div>
 
-      <button onClick={() => setShow(!show)}>Переключить</button>
+      <button
+        className="bg-green-500 text-white px-8 py-2 rounded cursor-pointer"
+        onClick={() => setShow(!show)}
+      >
+        Переключить
+      </button>
 
-      {show && <Comments />}
+      {show && <Comments postId={selected} />}
     </div>
   );
 }

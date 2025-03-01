@@ -4,11 +4,12 @@ import styles from "./style.module.css";
 interface Props {
   title: string;
   author: string;
+  onSelect: () => void;
 }
 
-const PostComponent = ({ title, author }: Props) => {
+const PostComponent = ({ title, author, onSelect }: Props) => {
   return (
-    <div className={styles.post}>
+    <div className={styles.post} onClick={onSelect}>
       <h2 className={styles.title}>{title}</h2>
       <p className={styles.author}>
         Автор: <span>{author}</span>
