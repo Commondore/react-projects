@@ -3,6 +3,7 @@ import { Post } from "@/components/post";
 import { Comments } from "@/components/comments";
 import "./App.css";
 import { fetchPosts, fetchUserById } from "@/api/request";
+import { Button } from "@/shared/ui/button";
 
 interface PostState {
   id: number;
@@ -52,12 +53,9 @@ function App() {
         })}
       </div>
 
-      <button
-        className="bg-green-500 text-white px-8 py-2 rounded cursor-pointer"
-        onClick={() => setShow(!show)}
-      >
+      <Button variant={"default"} onClick={() => setShow(!show)}>
         Переключить
-      </button>
+      </Button>
 
       {show && <Comments postId={selected} />}
     </div>

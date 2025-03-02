@@ -1,5 +1,6 @@
 import { memo } from "react";
-import styles from "./style.module.css";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/shared/ui/card";
+import { Button } from "@/shared/ui/button";
 
 interface Props {
   title: string;
@@ -9,12 +10,21 @@ interface Props {
 
 const PostComponent = ({ title, author, onSelect }: Props) => {
   return (
-    <div className={styles.post} onClick={onSelect}>
-      <h2 className={styles.title}>{title}</h2>
-      <p className={styles.author}>
-        Автор: <span>{author}</span>
-      </p>
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle>{title.substring(0, 20)}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p className="text-sm">
+          Автор: <span className="font-semibold">{author}</span>
+        </p>
+      </CardContent>
+      <CardFooter className="justify-center">
+        <Button size={"xs"} variant={"secondary"} onClick={onSelect}>
+          Комментарии поста
+        </Button>
+      </CardFooter>
+    </Card>
   );
 };
 
