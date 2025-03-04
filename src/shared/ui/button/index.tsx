@@ -3,9 +3,10 @@ import styles from "./style.module.css";
 
 interface Props {
   children: React.ReactNode;
-  click: () => void;
+  click?: () => void;
   variant?: "success" | "danger" | "warning";
   size?: "xs" | "sm" | "lg" | "xl";
+  type?: "button" | "submit" | "reset";
 }
 
 export const Button = ({ children, click, variant, size }: Props) => {
