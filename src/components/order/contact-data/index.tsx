@@ -2,15 +2,20 @@ import { Button } from "@/shared/ui/button";
 import styles from "./style.module.css";
 import { useState } from "react";
 import { usePizzaContext } from "@/context/pizza-povider";
+import { postOrder } from "@/api/firebase";
+import { Loader } from "@/shared/ui/loader";
+import { useNavigate } from "react-router";
 
 export const ContactData = () => {
-  const { ings, price } = usePizzaContext();
+  const { ings, price, reset } = usePizzaContext();
   const [customer, setCustomer] = useState({
     name: "",
     email: "",
     address: "",
     phone: "",
   });
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCustomer((prevCustomer) => {
@@ -21,10 +26,31 @@ export const ContactData = () => {
     });
   };
 
-  const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+  const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("send data to firebase");
+
+    try {
+      setLoading(true);
+      const order = await postOrder({
+        ingredients: ings,
+        price,
+        customer,
+      });
+
+      if (order) {
+        reset();
+        navigate("/");
+      } else {
+        throw new Error("Ошибка отправки заказа");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
   };
+
+  if (loading) return <Loader />;
 
   return (
     <div className={styles.contactData}>

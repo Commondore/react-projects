@@ -6,6 +6,7 @@ interface ContextType {
   price: number;
   addIng: (ingName: string) => void;
   removeIng: (ingName: string) => void;
+  reset: () => void;
 }
 
 const PRICES = {
@@ -25,6 +26,7 @@ const DEFAULT_VALUE = {
   price: 100,
   addIng: () => {},
   removeIng: () => {},
+  reset: () => {},
 };
 
 const PizzaContext = createContext<ContextType>(DEFAULT_VALUE);
@@ -67,9 +69,14 @@ export const PizzaProvider = ({ children }: Props) => {
     [ings]
   );
 
+  const reset = useCallback(() => {
+    setIngs(DEFAULT_VALUE.ings);
+    setPrice(DEFAULT_VALUE.price);
+  }, []);
+
   const data = useMemo(() => {
-    return { ings, price, addIng, removeIng };
-  }, [ings, price, removeIng, addIng]);
+    return { ings, price, addIng, removeIng, reset };
+  }, [ings, price, removeIng, addIng, reset]);
 
   return <PizzaContext.Provider value={data}>{children}</PizzaContext.Provider>;
 };
