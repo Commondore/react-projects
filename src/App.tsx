@@ -13,9 +13,8 @@ function App() {
           <Route path="/checkout" element={<CheckoutPage />}>
             <Route path="contact-data" element={<ContactData />} />
           </Route>
+          <Route path="*" element={<h1>404 | Страница не найдена</h1>} />
         </Route>
-
-        <Route path="*" element={<h1>404 | Страница не найдена</h1>} />
       </Routes>
     </>
   );
