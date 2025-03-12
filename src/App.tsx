@@ -1,4 +1,5 @@
 import { MainLayout } from "@/components/layouts/main-layout";
+import { Orders } from "@/components/order";
 import { ContactData } from "@/components/order/contact-data";
 import { CheckoutPage } from "@/pages/checkout-page";
 import { PizzaBuilder } from "@/pages/pizza-builder";
@@ -10,9 +11,10 @@ function App() {
       <Routes>
         <Route path="/" element={<MainLayout />}>
           <Route index element={<PizzaBuilder />} />
-          <Route path="/checkout" element={<CheckoutPage />}>
+          <Route path="checkout" element={<CheckoutPage />}>
             <Route path="contact-data" element={<ContactData />} />
           </Route>
+          <Route path="orders" element={<Orders />} />
           <Route path="*" element={<h1>404 | Страница не найдена</h1>} />
         </Route>
       </Routes>
